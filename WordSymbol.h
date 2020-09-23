@@ -108,7 +108,7 @@ const unordered_map<WordSymbol, string> toString{
 const unordered_map<string, WordSymbol> reservedWords{
 	{"const",						WordSymbol::CONSTTK},
 	{"int",							WordSymbol::INTTK},
-	{"char",						WordSymbol::CHARCON},
+	{"char",						WordSymbol::CHARTK},
 	{"void",						WordSymbol::VOIDTK},
 	{"main",						WordSymbol::MAINTK},
 	{"if",							WordSymbol::IFTK},
