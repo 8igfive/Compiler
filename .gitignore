@@ -1,0 +1,8 @@
+*.swp
+*.aps
+*.rc
+*.vcxproj
+*.filters
+*.user
+*.txt
+Debug/*
