@@ -2,12 +2,11 @@
 #define __WORDANALYSER_H__
 
 #include <iostream>
-#include <sstream>
+#include <stdio.h>
 #include <memory>
 #include "WordInstance.h"
 
 using std::string;
-using std::stringbuf;
 using std::shared_ptr;
 
 class WordAnalyser{
@@ -16,14 +15,46 @@ class WordAnalyser{
 	int col;
 	int colOld;															//as a remember.
 	int c;
-	stringbuf buffer;
+	FILE* file;
+	
 
-	inline void getChar();
-	inline void moveBackChar();
+	inline void getChar() {
+		c = fgetc(file);
+		if (c == '\n') {
+			row++;
+			colOld = col;
+			col = 0;
+		}
+		else if (c == '\t') {
+			col += 4;
+		}
+		else {
+			col++;
+		}
+	}
+	inline void moveBackChar() {
+		if (c == '\n') {
+			row--;
+			col = colOld;
+		}
+		else if (c == '\t') {
+			col -= 4;
+		}
+		else {
+			col--;
+		}
+		fseek(file, -1L, SEEK_CUR);
+	}
 
-	static inline bool isDigit(char c);
-	static inline bool isLetter(char c);
-	static inline bool isBlank(char c);									//don't include \n
+	static inline bool isDigit(char c) {
+		return c >= '0' and c <= '9';
+	}
+	static inline bool isLetter(char c) {
+		return c == '_' || c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z';
+	}
+	static inline bool isBlank(char c) {
+		return c == ' ' || c == '\t' || c == '\r' || c == '\n';
+	}
 
 	void handleBlank();
 	shared_ptr<WordInstance> handleIdentifierOrReservedWord();
@@ -37,7 +68,7 @@ class WordAnalyser{
 	shared_ptr<WordInstance> handleSingleWord();
 
 public:
-	WordAnalyser(const string& source);
+	WordAnalyser(FILE* fp);
 	shared_ptr<WordInstance> next();									//return "" when there is no token.
 };
 

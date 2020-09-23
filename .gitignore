@@ -6,4 +6,5 @@
 *.user
 *.txt
 *.zip
+resource.h
 Debug/*

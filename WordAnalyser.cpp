@@ -3,49 +3,7 @@
 
 using std::make_shared;
 
-inline void WordAnalyser::getChar(){
-	c = buffer.sgetc();
-	if (c == '\n') {
-		row++;
-		colOld = col;
-		col = 0;
-	}
-	else if (c == '\t') {
-		col += 4;
-	}
-	else {
-		col++;
-	}
-	buffer.snextc();
-}
-
-inline void WordAnalyser::moveBackChar(){
-	if (c == '\n') {
-		row--;
-		col = colOld;
-	}
-	else if (c == '\t') {
-		col -= 4;
-	}
-	else {
-		col--;
-	}
-	buffer.sungetc();
-}
-
-inline bool WordAnalyser::isDigit(char c){
-	return c >= '0' and c <= '9';
-}
-
-inline bool WordAnalyser::isLetter(char c){
-	return c=='_'||c>='a'&&c<='z'||c>='A'&&c<='Z';
-}
-
-inline bool WordAnalyser::isBlank(char c){
-	return c==' '||c=='\t'||c=='\r'||c=='\n';
-}
-
-void WordAnalyser::handleBlank(){
+void WordAnalyser::handleBlank() {
 	while (isBlank(c)) {
 		getChar();
 	}
@@ -150,9 +108,8 @@ shared_ptr<WordInstance> WordAnalyser::handleSingleWord(){
 	return make_shared<WordInstance>(singleCharWordToSymbol(c), token);
 }
 
-WordAnalyser::WordAnalyser(const string& source)
-	:row(1), col(0), colOld(0), c(0) {
-	buffer.str(source);
+WordAnalyser::WordAnalyser(FILE* fp)
+:row(1),col(0),colOld(0),c(0),file(fp){
 }
 
 shared_ptr<WordInstance> WordAnalyser::next(){
