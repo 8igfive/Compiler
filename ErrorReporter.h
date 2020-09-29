@@ -3,14 +3,14 @@
 
 #include "ErrorType.h"
 
-class ErrorRepoter{
+class ErrorReporter{
 	int row;
-	int col;
+	int num;
 	ErrorType type;
 	
 public:
-	ErrorRepoter(int row, int col, ErrorType type);
-	ErrorRepoter();
+	ErrorReporter(int row, int num, ErrorType type);
+	ErrorReporter();
 	void showError();
 };
 

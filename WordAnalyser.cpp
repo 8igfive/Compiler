@@ -1,5 +1,5 @@
 #include "WordAnalyser.h"
-#include "ErrorRepoter.h"
+#include "ErrorReporter.h"
 
 using std::make_shared;
 
@@ -42,7 +42,8 @@ shared_ptr<WordInstance> WordAnalyser::handleChar(){
 			return ch;
 		}
 	}
-	throw ErrorRepoter();
+	moveBackChar();
+	throw ErrorReporter();
 }
 
 shared_ptr<WordInstance> WordAnalyser::handleString(){
@@ -56,7 +57,8 @@ shared_ptr<WordInstance> WordAnalyser::handleString(){
 		return make_shared<WordInstance>(WordSymbol::STRCON, token);
 	}
 	else {
-		throw ErrorRepoter();
+		moveBackChar();
+		throw ErrorReporter();
 	}
 }
 
@@ -99,7 +101,8 @@ shared_ptr<WordInstance> WordAnalyser::handleN(){
 	if (c == '=') {
 		return make_shared<WordInstance>(WordSymbol::NEQ, "!=");
 	}
-	throw ErrorRepoter();
+	moveBackChar();
+	throw ErrorReporter();
 }
 
 shared_ptr<WordInstance> WordAnalyser::handleSingleWord(){
@@ -109,10 +112,11 @@ shared_ptr<WordInstance> WordAnalyser::handleSingleWord(){
 }
 
 WordAnalyser::WordAnalyser(FILE* fp)
-:row(1),col(0),colOld(0),c(0),file(fp){
+:row(1),num(0),numOld(0),c(0),file(fp){
 }
 
 shared_ptr<WordInstance> WordAnalyser::next(){
+	num++;
 	try {
 		getChar();
 		if (isBlank(c)) {
@@ -149,7 +153,9 @@ shared_ptr<WordInstance> WordAnalyser::next(){
 			return handleSingleWord();
 		}
 	}
-	catch (ErrorRepoter e) {						//assume e is trigger
-		throw ErrorRepoter(row, col, ErrorType::WORDERROR);
+	catch (ErrorReporter e) {						//assume e is trigger
+		ErrorReporter error(row, num, ErrorType::WORDERROR);
+		//error.handle();
+		return make_shared<WordInstance>(WordSymbol::ERROR, "WORDERROR");
 	}
 }

@@ -1,7 +1,7 @@
 #include "WordSymbol.h"
 #include <algorithm>
 #include <cctype>
-#include "ErrorRepoter.h"
+#include "ErrorReporter.h"
 using std::transform;
 
 string symbolToString(WordSymbol symbol){
@@ -22,7 +22,7 @@ WordSymbol reservedWordToSymbol(const string& word)
 	if (itr != reservedWords.end()) {
 		return itr->second;
 	}
-	throw ErrorRepoter();				//error occur
+	throw ErrorReporter();				//error occur
 }
 
 WordSymbol singleCharWordToSymbol(char c)
@@ -31,5 +31,5 @@ WordSymbol singleCharWordToSymbol(char c)
 	if (itr != singleCharWords.end()) {
 		return singleCharWords.find(c)->second;
 	}
-	throw ErrorRepoter();				//error occur
+	throw ErrorReporter();				//error occur
 }

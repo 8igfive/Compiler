@@ -59,6 +59,7 @@ enum class WordSymbol {
 	RBRACE,			//}
 
 	//½áÊø·û
+	ERROR,
 	EXIT			
 };
 
@@ -102,6 +103,7 @@ const unordered_map<WordSymbol, string> toString{
 	{WordSymbol::RBRACK,			"RBRACK"},
 	{WordSymbol::LBRACE,			"LBRACE"},
 	{WordSymbol::RBRACE,			"RBRACE"},
+	{WordSymbol::ERROR,				"ERROR"},
 	{WordSymbol::EXIT,				"EXIT"}
 };
 

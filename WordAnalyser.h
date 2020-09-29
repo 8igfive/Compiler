@@ -2,18 +2,19 @@
 #define __WORDANALYSER_H__
 
 #include <iostream>
-#include <stdio.h>
+#include <cstdio>
 #include <memory>
 #include "WordInstance.h"
 
 using std::string;
 using std::shared_ptr;
+using std::FILE;
 
 class WordAnalyser{
 
 	int row;
-	int col;
-	int colOld;															//as a remember.
+	int num;
+	int numOld;															//as a remember.
 	int c;
 	FILE* file;
 	
@@ -22,26 +23,14 @@ class WordAnalyser{
 		c = fgetc(file);
 		if (c == '\n') {
 			row++;
-			colOld = col;
-			col = 0;
-		}
-		else if (c == '\t') {
-			col += 4;
-		}
-		else {
-			col++;
+			numOld = num;
+			num = 1;
 		}
 	}
 	inline void moveBackChar() {
 		if (c == '\n') {
 			row--;
-			col = colOld;
-		}
-		else if (c == '\t') {
-			col -= 4;
-		}
-		else {
-			col--;
+			num = numOld;
 		}
 		fseek(file, -1L, SEEK_CUR);
 	}
