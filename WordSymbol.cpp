@@ -33,3 +33,15 @@ WordSymbol singleCharWordToSymbol(char c)
 	}
 	throw ErrorReporter();				//error occur
 }
+
+bool isPulsOrMinu(WordSymbol symbol){
+	return plusOrMinu.find(symbol) != plusOrMinu.end();
+}
+
+bool isMultOrDiv(WordSymbol symbol){
+	return MultOrDiv.find(symbol) != MultOrDiv.end();
+}
+
+bool isRelation(WordSymbol symbol){
+	return Relation.find(symbol) != Relation.end();
+}

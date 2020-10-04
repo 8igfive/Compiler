@@ -15,6 +15,7 @@ public:
 	WordInstance(WordSymbol symbol, const string& value);
 	WordInstance();
 	WordSymbol getSymbol();
+	string getValue();
 	static shared_ptr<WordInstance> makeIndentifierOrReservedWord(const string& token);
 	static shared_ptr<WordInstance> makeInteger(const string& token);
 	static shared_ptr<WordInstance> makeChar(char c);

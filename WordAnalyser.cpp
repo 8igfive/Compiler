@@ -3,6 +3,14 @@
 
 using std::make_shared;
 
+int WordAnalyser::getRow(){
+	return row;
+}
+
+int WordAnalyser::getNum(){
+	return num;
+}
+
 void WordAnalyser::handleBlank() {
 	while (isBlank(c)) {
 		getChar();

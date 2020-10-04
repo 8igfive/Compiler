@@ -1,4 +1,5 @@
 #include "WordInstance.h"
+#include <algorithm>
 
 using std::make_shared;
 
@@ -11,6 +12,12 @@ WordInstance::WordInstance()
 WordSymbol WordInstance::getSymbol()
 {
 	return this->symbol;
+}
+
+string WordInstance::getValue(){
+	string lowerWord(value);
+	transform(lowerWord.begin(), lowerWord.end(), lowerWord.begin(), tolower);
+	return lowerWord;
 }
 
 shared_ptr<WordInstance> WordInstance::makeIndentifierOrReservedWord(const string& token){

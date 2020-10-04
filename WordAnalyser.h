@@ -57,6 +57,9 @@ class WordAnalyser{
 	shared_ptr<WordInstance> handleSingleWord();
 
 public:
+	int getRow();
+	int getNum();
+
 	WordAnalyser(FILE* fp);
 	shared_ptr<WordInstance> next();									//return "" when there is no token.
 };

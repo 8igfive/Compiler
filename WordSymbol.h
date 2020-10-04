@@ -2,8 +2,10 @@
 #define __WORDSYMBOL_H__
 
 #include <unordered_map>
+#include <unordered_set>
 
 using std::unordered_map;
+using std::unordered_set;
 using std::string;
 
 enum class WordSymbol {
@@ -141,6 +143,25 @@ const unordered_map<char, WordSymbol> singleCharWords{
 	{'}',							WordSymbol::RBRACE}
 };
 
+const unordered_set<WordSymbol> plusOrMinu{
+	WordSymbol::PLUS,
+	WordSymbol::MINU
+};
+
+const unordered_set<WordSymbol> MultOrDiv{
+	WordSymbol::MULT,
+	WordSymbol::DIV
+};
+
+const unordered_set<WordSymbol> Relation{
+	WordSymbol::LSS,
+	WordSymbol::LEQ,
+	WordSymbol::GRE,
+	WordSymbol::GEQ,
+	WordSymbol::NEQ,
+	WordSymbol::EQL
+};
+
 string symbolToString(WordSymbol symbol);
 
 bool isReservedWord(const string &word);
@@ -148,6 +169,12 @@ bool isReservedWord(const string &word);
 WordSymbol reservedWordToSymbol(const string& s);
 
 WordSymbol singleCharWordToSymbol(char c);
+
+bool isPulsOrMinu(WordSymbol symbol);
+
+bool isMultOrDiv(WordSymbol symbol);
+
+bool isRelation(WordSymbol symbol);
 
 #endif // !__WORDSYMBOL_H__
 

@@ -8,12 +8,15 @@ using std::string;
 
 enum class ErrorType {
 	TRIGGER,
-	WORDERROR
+	WORDERROR,
+	GRAMMAERROR
 };
 
 const unordered_map<ErrorType, string> typeToString{
 	{ErrorType::TRIGGER,"TRIGGER"},
-	{ErrorType::WORDERROR,"WORDERROR"}
+	{ErrorType::WORDERROR,"WORDERROR"},
+	{ErrorType::GRAMMAERROR,"GRAMMAERROR"}
+
 };
 
 string errorTypeToString(ErrorType type);

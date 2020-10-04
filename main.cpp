@@ -1,29 +1,41 @@
 #include <fstream>
 #include <cstdio>
+#include <iostream>
 #include "WordAnalyser.h"
-#define INPUTFILENAME	"C:\\Users\\8igfive\\Desktop\\Schools\\大三上\\编译\\第一次作业\\testfile5.txt"
-#define OUTPUTFILENAME	"output.txt"
+#include "Global.h"
 
 using std::ofstream;
 using std::ios;
 using std::make_shared;
 using std::endl;
+using std::cout;
 using std::fopen;
 
-int main() {
-	FILE* testfile=fopen(INPUTFILENAME, "r");
+//global variables part 
 
-	ofstream output;
+ofstream output;
+
+FILE* testfile;
+
+vector<ErrorReporter> errorCollector;
+
+shared_ptr<WordAnalyser> wordAnalyser;
+
+shared_ptr<GrammaAnalyser> grammaAnalyser;
+
+unordered_map<string, IdenfrType> symbolTable;
+
+int main() {
+	testfile=fopen(INPUTFILENAME, "r");
+
 	output.open(OUTPUTFILENAME, ios::out);
 
+	wordAnalyser = make_shared<WordAnalyser>(testfile);
 
-	shared_ptr<WordAnalyser> wordAnalyser = make_shared<WordAnalyser>(testfile);
+	grammaAnalyser = make_shared<GrammaAnalyser>();
 
-	shared_ptr<WordInstance> wordInstance = wordAnalyser->next();
-	while (wordInstance->getSymbol() != WordSymbol::EXIT) {
-		output << *wordInstance << endl;
-		wordInstance = wordAnalyser->next();
-	}
+	grammaAnalyser->startAnalyse();
+
 	fclose(testfile);
 	output.close();
 	return 0;
