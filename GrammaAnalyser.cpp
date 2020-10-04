@@ -2,11 +2,15 @@
 #include "Global.h"
 #include "ErrorReporter.h"
 #include "WordSymbol.h"
+#include "WordAnalyser.h"
 #include <algorithm>
 #include <iostream>
+#include <fstream>
 
 using std::endl;
 using std::cout;
+using std::ofstream;
+
 extern ofstream output;
 extern shared_ptr<WordAnalyser> wordAnalyser;
 extern unordered_map<string, IdenfrType> symbolTable;
@@ -1647,7 +1651,7 @@ void GrammaAnalyser::caseTableHandler(){
 		//error.handle();
 		return;
 	}
-	while (token->getSymbol() != WordSymbol::CASETK) {
+	while (token->getSymbol() == WordSymbol::CASETK) {
 		caseHandler();
 	}
 

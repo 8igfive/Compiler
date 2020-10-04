@@ -1,11 +1,16 @@
 #include <fstream>
 #include <cstdio>
 #include <iostream>
+#include <vector>
 #include "WordAnalyser.h"
 #include "Global.h"
+#include "GrammaAnalyser.h"
+#include "ErrorReporter.h"
+#include "IdenfrType.h"
 
 using std::ofstream;
 using std::ios;
+using std::vector;
 using std::make_shared;
 using std::endl;
 using std::cout;
